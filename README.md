@@ -10,6 +10,12 @@ A RESTful API for minimarket inventory management with an integrated AI agent.
 - **Authentication:** JWT + BCrypt
 - **Deployment:** AWS EC2
 
+## Requirements
+
+- Java 17+
+- Maven 3.8+
+- PostgreSQL 14+
+
 ## Project Phases
 
 | Phase | Description | Status |
@@ -31,19 +37,27 @@ A RESTful API for minimarket inventory management with an integrated AI agent.
 | DELETE | `/api/products/{id}` | Delete product |
 | GET | `/api/products/expiring-soon` | Get products expiring within 7 days |
 
+### Authentication
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/auth/register` | Register a new user |
+| POST | `/auth/login` | Login and receive JWT token |
+
 ## Local Setup
 
 1. Clone the repository
-2. Create a `.env` file in the root directory:
+2. Make sure you have **Java 17+** installed
+3. Create a `.env` file in the root directory:
 ```env
 DB_PASSWORD=your_password
-SECURITY_PASSWORD=your_password
+JWT_SECRET=your_jwt_secret_key
 ```
-3. Make sure PostgreSQL is running on port `5433` with a database named `smart_store_db`
-4. Run the application:
+4. Make sure PostgreSQL is running on port `5433` with a database named `smart_store_db`
+5. Run the application:
 ```bash
 ./mvnw spring-boot:run
 ```
+6. Use the `/auth/register` endpoint to create your first user, then `/auth/login` to get your JWT token
 
 ## Author
 
