@@ -6,7 +6,7 @@ A RESTful API for minimarket inventory management with an integrated AI agent.
 
 - **Backend:** Java 17 + Spring Boot 3.2.5
 - **Database:** PostgreSQL
-- **AI Agent:** Groq API
+- **AI Agent:** Groq API (llama)
 - **Authentication:** JWT + BCrypt
 - **Deployment:** AWS EC2
 
@@ -22,8 +22,8 @@ A RESTful API for minimarket inventory management with an integrated AI agent.
 |-------|-------------|--------|
 | 1 | Core REST API — Product CRUD & expiry alerts | ✅ Complete |
 | 2 | JWT Authentication & User model | ✅ Complete |
-| 3 | AI Agent integration (Groq) | 🔄 In progress |
-| 4 | AWS Deployment | ⏳ Pending |
+| 3 | AI Agent integration (Groq) | ✅ Complete |
+| 4 | AWS Deployment | 🔄 In progress |
 
 ## API Endpoints
 
@@ -43,6 +43,11 @@ A RESTful API for minimarket inventory management with an integrated AI agent.
 | DELETE | `/api/products/{id}` | Delete product | Yes |
 | GET | `/api/products/expiring-soon` | Get products expiring within 7 days | Yes |
 
+### AI Agent
+| Method | Endpoint | Description | Auth required |
+|--------|----------|-------------|---------------|
+| POST | `/ai/query` | Ask a natural language question about the inventory | Yes |
+
 ## Local Setup
 
 1. Clone the repository
@@ -50,7 +55,7 @@ A RESTful API for minimarket inventory management with an integrated AI agent.
 3. Create a `.env` file in the root directory:
 ```env
 DB_PASSWORD=your_password
-JWT_SECRET=your_jwt_secret_key
+GROQ_API_KEY=your_groq_api_key
 ```
 4. Make sure PostgreSQL is running on port `5433` with a database named `smart_store_db`
 5. Run the application:
@@ -77,6 +82,13 @@ POST /auth/login
 8. Use the token in the `Authorization` header for all protected endpoints:
 ```
 Authorization: Bearer <your_token>
+```
+9. Ask the AI agent about your inventory:
+```json
+POST /ai/query
+{
+    "question": "What products are expiring soon?"
+}
 ```
 
 ## Author
