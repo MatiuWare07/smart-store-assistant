@@ -39,25 +39,29 @@ public class AiAgentService {
      * @param userQuestion the natural language question from the user
      * @return AI-generated response based on real inventory data
      */
-    public String processQuery(String userQuestion){
+    public String processQuery(String userQuestion) {
         List<Product> products = productService.getAllProducts();
 
         StringBuilder inventoryContext = new StringBuilder();
         inventoryContext.append("Current inventory data:\n");
 
         for (Product product : products) {
+            String expiryDate = product.getExpiryDate() != null
+                    ? product.getExpiryDate().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                    : "N/A";
+
             inventoryContext.append(String.format(
                     "- %s | Category: %s | Stock: %d units | Price: %.2f | Expiry: %s\n",
                     product.getName(),
                     product.getCategory(),
                     product.getStock(),
                     product.getPrice(),
-                    product.getExpiryDate() != null ? product.getExpiryDate().toString() : "N/A"
+                    expiryDate
             ));
         }
 
-        String fullPromt = inventoryContext.toString() + "\nUser question: " + userQuestion;
+        String fullPrompt = inventoryContext.toString() + "\nUser question: " + userQuestion;
 
-        return groqService.sendPrompt(fullPromt);
+        return groqService.sendPrompt(fullPrompt);
     }
 }
