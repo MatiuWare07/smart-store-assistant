@@ -23,7 +23,7 @@ A RESTful API for minimarket inventory management with an integrated AI agent.
 | 1 | Core REST API — Product CRUD & expiry alerts | ✅ Complete |
 | 2 | JWT Authentication & User model | ✅ Complete |
 | 3 | AI Agent integration (Groq) | ✅ Complete |
-| 4 | AWS Deployment | 🔄 In progress |
+| 4 | AWS Deployment | ✅ Complete |
 
 ## API Endpoints
 
